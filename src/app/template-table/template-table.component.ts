@@ -1,4 +1,4 @@
-import {Component, Input, ContentChildren, QueryList} from "@angular/core";
+import {Component, Input, ContentChildren, QueryList, OnInit, AfterViewInit, AfterContentInit} from "@angular/core";
 import {ColumnComponent} from "./column.component";
 
 @Component({
@@ -6,7 +6,7 @@ import {ColumnComponent} from "./column.component";
   template: `<table class="template-table">
                 <thead>
                   <tr>
-                      <th *ngFor="let column of columns">
+                      <th *ngFor="let column of columns | hiddenfilter">
                       {{column.header}}
                       </th>
                   </tr>
@@ -18,7 +18,14 @@ import {ColumnComponent} from "./column.component";
                            [columns]="columns" 
                            [index]=i></tt-row>
                 </tbody>
-            </table>`
+            </table>
+            <tt-paginator *ngIf="paginator"
+                    [rowsPerPage]="rowsPerPage" 
+                    [first]="first"
+                    [totalRecords]="totalRecords"
+                    styleClass="ui-paginator"
+                    (onPageChange)="paginate($event)">
+            </tt-paginator>`
 })
 
 export class TemplateTableComponent {
@@ -26,5 +33,11 @@ export class TemplateTableComponent {
   @ContentChildren(ColumnComponent) columns: QueryList<ColumnComponent>;
 
   @Input() rows: Array<any>;
+
+  @Input() paginator: boolean = true;
+
+  private rowsPerPage: number = 10;
+
+  private totalRecords: number = 20
 
 }

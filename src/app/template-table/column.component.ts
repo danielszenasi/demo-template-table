@@ -8,7 +8,7 @@ export class ColumnComponent {
 
   @Input() field: string;
   @Input() header: string;
-  @Input() hidden: boolean;
+  @Input() hidden: boolean = false;
   //@Input() sortable: boolean;
 
   @ContentChild(TemplateRef) template: TemplateRef<any>;

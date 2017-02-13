@@ -4,7 +4,7 @@ import {ColumnComponent} from "./column.component";
 @Component({
   selector: 'tt-row',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `<td *ngFor="let col of columns"
+  template: `<td *ngFor="let col of columns | hiddenfilter"
                   [hidden]="hidden">
                   <span *ngIf="col.template">
                       <tt-column-loader [column]="col" [rowData]="row" [rowIndex]="index + 1"></tt-column-loader>
